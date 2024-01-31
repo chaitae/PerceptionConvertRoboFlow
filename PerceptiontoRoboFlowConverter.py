@@ -104,6 +104,13 @@ def choose_folder():
 
     return folder_path
 
+def create_output_folder(script_directory):
+    output_folder = os.path.join(script_directory, "output_folder")
+
+    if not os.path.exists(output_folder):
+        os.makedirs(output_folder)
+
+    return output_folder
 if __name__ == "__main__":
     # Choose a folder
     folder_path = choose_folder()
@@ -120,3 +127,13 @@ if __name__ == "__main__":
 
     # Print the resulting JSON
     print(json.dumps(output_data, indent=2))
+    
+    # Get the directory where the script is located
+    script_directory = os.path.dirname(os.path.abspath(__file__))
+    output_folder = create_output_folder(script_directory)
+
+    output_file_path = os.path.join(output_folder, "converted_output.json")
+
+    # Write the resulting JSON to a new file
+    with open(output_file_path, "w") as output_file:
+        json.dump(output_data, output_file, indent=2)
