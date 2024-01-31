@@ -1,0 +1,80 @@
+{
+  "version": "0.0.1",
+  "captures": [
+    {
+      "id": "8ae74829-828e-408f-9317-78fcfa3972b5",
+      "sequence_id": 0,
+      "step": 0,
+      "timestamp": 0.0,
+      "sensor": {
+        "sensor_id": "c9a71c6b-4db0-4865-b0de-3366d65e735d",
+        "ego_id": "95f78659-debc-45f1-a624-b9648c354371",
+        "modality": "camera",
+        "translation": [
+          -0.64,
+          1.11,
+          -10.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ],
+        "camera_intrinsic": [
+          3.569568,
+          0.0,
+          0.0,
+          0.0,
+          3.569568,
+          0.0,
+          0.0,
+          0.0,
+          -1.0006001
+        ]
+      },
+      "ego": {
+        "ego_id": "95f78659-debc-45f1-a624-b9648c354371",
+        "translation": [
+          0.0,
+          0.0,
+          0.0
+        ],
+        "rotation": [
+          0.0,
+          0.0,
+          0.0,
+          1.0
+        ]
+      },
+      "filename": "step18.camera.png",
+      "format": "Png",
+      "annotations": [
+        {
+          "id": "ab1f1159-dca4-4a12-9914-bcd9d79f35e5",
+          "annotation_definition": "type.unity.com/unity.solo.BoundingBox2DAnnotation",
+          "values": [
+            {
+              "label_id": 1,
+              "label_name": "starPillow",
+              "instance_id": 2,
+              "x": 152.0,
+              "y": 98.0,
+              "width": 255.0,
+              "height": 238.0
+            },
+            {
+              "label_id": 1,
+              "label_name": "starPillow",
+              "instance_id": 3,
+              "x": 45.0,
+              "y": 156.0,
+              "width": 139.0,
+              "height": 147.0
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

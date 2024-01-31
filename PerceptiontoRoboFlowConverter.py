@@ -85,16 +85,23 @@ def convert_format(input_data):
 
     return output_data
 
-def load_first_json_from_folder(folder_path):
+def load_all_jsons_from_folder(folder_path):
     json_files = [f for f in os.listdir(folder_path) if f.endswith(".json")]
 
     if not json_files:
         raise ValueError("No JSON files found in the specified folder.")
 
-    first_json_file = os.path.join(folder_path, json_files[0])
+    json_data_list = []
 
-    with open(first_json_file, "r") as file:
-        return json.load(file)
+    for json_file in json_files:
+        file_path = os.path.join(folder_path, json_file)
+        try:
+            with open(file_path, "r") as file:
+                json_data_list.append((json_file, json.load(file)))
+        except json.JSONDecodeError as e:
+            print(f"Error decoding JSON in {file_path}: {e}")
+
+    return json_data_list
 
 def choose_folder():
     root = tk.Tk()
@@ -111,29 +118,31 @@ def create_output_folder(script_directory):
         os.makedirs(output_folder)
 
     return output_folder
+
 if __name__ == "__main__":
+    # Get the directory where the script is located
+    script_directory = os.path.dirname(os.path.abspath(__file__))
+
     # Choose a folder
     folder_path = choose_folder()
 
     try:
-        # Load the first JSON file from the chosen folder
-        input_data = load_first_json_from_folder(folder_path)
+        # Load all JSON files from the chosen folder
+        json_data_list = load_all_jsons_from_folder(folder_path)
     except ValueError as e:
         print(f"Error: {e}")
         exit()
 
-    # Perform conversion
-    output_data = convert_format(input_data)
-
-    # Print the resulting JSON
-    print(json.dumps(output_data, indent=2))
-    
-    # Get the directory where the script is located
-    script_directory = os.path.dirname(os.path.abspath(__file__))
+    # Create an output folder in the script's directory
     output_folder = create_output_folder(script_directory)
 
-    output_file_path = os.path.join(output_folder, "converted_output.json")
+    for json_file, json_data in json_data_list:
+        # Perform conversion for each JSON file
+        output_data = convert_format(json_data)
 
-    # Write the resulting JSON to a new file
-    with open(output_file_path, "w") as output_file:
-        json.dump(output_data, output_file, indent=2)
+        # Define the output file path in the output folder
+        output_file_path = os.path.join(output_folder, f"converted_{json_file}")
+
+        # Write the resulting JSON to a new file in the output folder
+        with open(output_file_path, "w") as output_file:
+            json.dump(output_data, output_file, indent=2)
